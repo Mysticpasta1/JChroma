@@ -7,13 +7,10 @@ import org.jglr.jchroma.utils.ColorRef;
 import org.jglr.jchroma.utils.KeyboardKeys;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-
-import sun.rmi.runtime.Log;
 
 /**
  * """"""""Unit tests""""""""
@@ -48,7 +45,7 @@ public class TestEffects {
         heartEffect.setKeyColor(KeyboardKeys.RZKEY_4, red);
         heartEffect.setKeyColor(KeyboardKeys.RZKEY_6, red);
 
-        ProgressKeyboardEffect progressEffect = new ProgressKeyboardEffect(KeyboardKeys.RZKEY_F1, KeyboardKeys.RZKEY_F12);
+        ProgressKeyboardEffect2D progressEffect = new ProgressKeyboardEffect2D(KeyboardKeys.RZKEY_F1, KeyboardKeys.RZKEY_F12);
         progressEffect.setMinimumValue(0);
         progressEffect.setMaximumValue(100);
         progressEffect.setCurrentValue(0);
@@ -107,7 +104,7 @@ public class TestEffects {
     @Test
     public void progress() {
         int maxCount = 5;
-        ProgressKeyboardEffect effect = new ProgressKeyboardEffect(KeyboardKeys.RZKEY_F1, KeyboardKeys.RZKEY_F12);
+        ProgressKeyboardEffect2D effect = new ProgressKeyboardEffect2D(KeyboardKeys.RZKEY_F1, KeyboardKeys.RZKEY_F12);
         effect.setMinimumValue(0);
         effect.setMaximumValue(100);
         effect.setCurrentValue(0);
@@ -200,6 +197,11 @@ public class TestEffects {
             System.out.println("Testing: " + animationName + " ...");
             InputStream input = TestEffects.class.getResourceAsStream(animationName);
             AnimationBase animation = ChromaAnimationAPI.OpenAnimation(input);
+            try {
+                input.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             if (animation == null) {
                 System.err.println("Animation could not be loaded! " + animationName);
                 return;
@@ -214,12 +216,6 @@ public class TestEffects {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
-
-            try {
-                input.close();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }

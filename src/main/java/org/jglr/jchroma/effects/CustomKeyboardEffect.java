@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Custom effect, individually sets each color for each key
  */
-public class CustomKeyboardEffect extends KeyboardEffect implements ChromaEffect {
+public class CustomKeyboardEffect extends KeyboardEffect implements ChromaEffect2D {
     public static final int ROW_COUNT = 6;
     public static final int COLUMN_COUNT = 22;
     private final CustomStructure struct;

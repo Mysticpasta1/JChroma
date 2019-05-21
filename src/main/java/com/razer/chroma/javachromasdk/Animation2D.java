@@ -1,7 +1,7 @@
 package com.razer.chroma.javachromasdk;
 
 import org.jglr.jchroma.JChroma;
-import org.jglr.jchroma.effects.ChromaEffect;
+import org.jglr.jchroma.effects.ChromaEffect2D;
 import org.jglr.jchroma.effects.CustomKeyboardEffect;
 import org.jglr.jchroma.effects.CustomKeypadEffect;
 import org.jglr.jchroma.effects.CustomMouseEffect;
@@ -38,7 +38,7 @@ public class Animation2D extends AnimationBase {
             return;
         }
 
-        ChromaEffect effect = null;
+        ChromaEffect2D effect = null;
         switch (getDevice()) {
             case DE_Keyboard:
                 effect = new CustomKeyboardEffect();

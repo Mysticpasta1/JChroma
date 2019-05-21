@@ -5,16 +5,21 @@ import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
 import org.jglr.jchroma.devices.DeviceInfos;
 import org.jglr.jchroma.devices.GUIDStruct;
-import org.jglr.jchroma.effects.ChromaEffect;
+import org.jglr.jchroma.effects.ChromaEffect1D;
+import org.jglr.jchroma.effects.ChromaEffect2D;
+import org.jglr.jchroma.effects.ChromaLinkEffect;
+import org.jglr.jchroma.effects.CustomChromaLinkEffect;
+import org.jglr.jchroma.effects.CustomHeadsetEffect;
 import org.jglr.jchroma.effects.CustomKeyboardEffect;
 import org.jglr.jchroma.effects.CustomKeypadEffect;
 import org.jglr.jchroma.effects.CustomMouseEffect;
+import org.jglr.jchroma.effects.CustomMousepadEffect;
+import org.jglr.jchroma.effects.HeadsetEffect;
 import org.jglr.jchroma.effects.KeyboardEffect;
 import org.jglr.jchroma.effects.KeypadEffect;
 import org.jglr.jchroma.effects.MouseEffect;
+import org.jglr.jchroma.effects.MousepadEffect;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.UUID;
 
 /**
@@ -78,7 +83,29 @@ public class JChroma {
      * @throws JChromaException
      *          If the parameters of the effect are invalid or the effect is not supported
      */
-    public void createEffect(ChromaEffect effect) {
+    public void createEffect(ChromaEffect1D effect) {
+        if (effect == null) {
+            return;
+        }
+
+        if (effect instanceof CustomChromaLinkEffect) {
+            createChromaLinkEffect((CustomChromaLinkEffect)effect);
+        } else if (effect instanceof CustomHeadsetEffect) {
+            createHeadsetEffect((CustomHeadsetEffect)effect);
+        } else if (effect instanceof CustomMousepadEffect) {
+            createMousepadEffect((CustomMousepadEffect)effect);
+        }
+    }
+
+    /**
+     * Creates a chroma effect on the currently plugged device. The effect is immediately activated when calling this method.<br/>
+     * <b>Warning:</b> Any call to <code>createEffect</code> will replace the current effect!
+     * @param effect
+     *          The effect to create
+     * @throws JChromaException
+     *          If the parameters of the effect are invalid or the effect is not supported
+     */
+    public void createEffect(ChromaEffect2D effect) {
         if (effect == null) {
             return;
         }
@@ -90,6 +117,30 @@ public class JChroma {
         } else if (effect instanceof CustomMouseEffect) {
             createMouseEffect((CustomMouseEffect)effect);
         }
+    }
+
+    public void createChromaLinkEffect(ChromaLinkEffect effect) {
+        Structure param = effect.createParameter();
+        int err;
+        if(param == null) {
+            err = wrapper.CreateChromaLinkEffect(effect.getType().ordinal(), Pointer.NULL, Pointer.NULL);
+        } else {
+            param.write();
+            err = wrapper.CreateChromaLinkEffect(effect.getType().ordinal(), param.getPointer(), Pointer.NULL);
+        }
+        throwIfError(err, "createChromaLinkEffect("+effect.getType().name()+")");
+    }
+
+    public void createHeadsetEffect(HeadsetEffect effect) {
+        Structure param = effect.createParameter();
+        int err;
+        if(param == null) {
+            err = wrapper.CreateHeadsetEffect(effect.getType().ordinal(), Pointer.NULL, Pointer.NULL);
+        } else {
+            param.write();
+            err = wrapper.CreateHeadsetEffect(effect.getType().ordinal(), param.getPointer(), Pointer.NULL);
+        }
+        throwIfError(err, "createHeadsetEffect("+effect.getType().name()+")");
     }
 
     /**
@@ -134,6 +185,18 @@ public class JChroma {
             err = wrapper.CreateMouseEffect(effect.getType().ordinal(), param.getPointer(), Pointer.NULL);
         }
         throwIfError(err, "createMouseEffect("+effect.getType().name()+")");
+    }
+
+    public void createMousepadEffect(MousepadEffect effect) {
+        Structure param = effect.createParameter();
+        int err;
+        if(param == null) {
+            err = wrapper.CreateMousepadEffect(effect.getType().ordinal(), Pointer.NULL, Pointer.NULL);
+        } else {
+            param.write();
+            err = wrapper.CreateMousepadEffect(effect.getType().ordinal(), param.getPointer(), Pointer.NULL);
+        }
+        throwIfError(err, "createMousepadEffect("+effect.getType().name()+")");
     }
 
     /**
