@@ -1,8 +1,8 @@
 package org.jglr.jchroma.effects;
 
 import com.sun.jna.Structure;
+
 import org.jglr.jchroma.utils.ColorRef;
-import org.jglr.jchroma.utils.KeyboardKeys;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,15 +10,15 @@ import java.util.List;
 /**
  * Custom effect, individually sets each color for each key
  */
-public class CustomKeyboardEffect extends KeyboardEffect implements ChromaEffect {
-    public static final int ROW_COUNT = 6;
-    public static final int COLUMN_COUNT = 22;
+public class CustomMouseEffect extends MouseEffect implements ChromaEffect {
+    public static final int ROW_COUNT = 9;
+    public static final int COLUMN_COUNT = 7;
     private final CustomStructure struct;
 
     /**
-     * Creates a custom keyboard effect with colors filled with <code>ColorRef.NULL</code>. One should rewrite the value of the array instead of using ColorRef::setRed (or equivalent)
+     * Creates a custom mouse effect with colors filled with <code>ColorRef.NULL</code>. One should rewrite the value of the array instead of using ColorRef::setRed (or equivalent)
      */
-    public CustomKeyboardEffect() {
+    public CustomMouseEffect() {
         this(createEmptyArray());
     }
 
@@ -33,11 +33,11 @@ public class CustomKeyboardEffect extends KeyboardEffect implements ChromaEffect
     }
 
     /**
-     * Creates a custom keyboard effect with already assigned colors
+     * Creates a custom mouse effect with already assigned colors
      * @param colors
      *      The colors to assign to each key (in row/column order)
      */
-    public CustomKeyboardEffect(ColorRef[][] colors) {
+    public CustomMouseEffect(ColorRef[][] colors) {
         super();
         if(colors.length != ROW_COUNT) {
             throw new IllegalStateException("Colors array must be a "+ ROW_COUNT +"x"+COLUMN_COUNT+" (row, column) 2D ColorRef array");
@@ -54,8 +54,8 @@ public class CustomKeyboardEffect extends KeyboardEffect implements ChromaEffect
     }
 
     @Override
-    public KeyboardEffectType getType() {
-        return KeyboardEffectType.CUSTOM;
+    public MouseEffectType getType() {
+        return MouseEffectType.CUSTOM;
     }
 
     @Override
@@ -89,20 +89,12 @@ public class CustomKeyboardEffect extends KeyboardEffect implements ChromaEffect
         struct.colors[column+row*COLUMN_COUNT] = color.getValue();
     }
 
-    public void setKeyColor(int key, ColorRef color) {
-        setColor(KeyboardKeys.getRow(key), KeyboardKeys.getColumn(key), color);
-    }
-
     public void fill(ColorRef color) {
         for (int j = 0; j < COLUMN_COUNT; j++) {
             for (int i = 0; i < ROW_COUNT; i++) {
                 setColor(i, j, color);
             }
         }
-    }
-
-    public CustomKeyboardEffect combine(CustomKeyboardEffect other) {
-        return new CombinedCustomKeyboardEffect(this, other);
     }
 
     public ColorRef getColor(int row, int column) {

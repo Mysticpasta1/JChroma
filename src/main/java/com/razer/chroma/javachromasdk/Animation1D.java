@@ -1,6 +1,6 @@
 package com.razer.chroma.javachromasdk;
 
-import org.jglr.jchroma.effects.CustomKeyboardEffect;
+import org.jglr.jchroma.JChroma;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class Animation1D extends AnimationBase {
         }
         return 0.033f;
     }
-    public void showFrame(CustomKeyboardEffect effect, int frameId) {
+    public void showFrame(JChroma chroma, int frameId) {
         if (frameId < 0 || frameId >= mFrames.size()) {
             return;
         }

@@ -5,7 +5,13 @@ import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
 import org.jglr.jchroma.devices.DeviceInfos;
 import org.jglr.jchroma.devices.GUIDStruct;
+import org.jglr.jchroma.effects.ChromaEffect;
+import org.jglr.jchroma.effects.CustomKeyboardEffect;
+import org.jglr.jchroma.effects.CustomKeypadEffect;
+import org.jglr.jchroma.effects.CustomMouseEffect;
 import org.jglr.jchroma.effects.KeyboardEffect;
+import org.jglr.jchroma.effects.KeypadEffect;
+import org.jglr.jchroma.effects.MouseEffect;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -65,6 +71,28 @@ public class JChroma {
     }
 
     /**
+     * Creates a chroma effect on the currently plugged device. The effect is immediately activated when calling this method.<br/>
+     * <b>Warning:</b> Any call to <code>createEffect</code> will replace the current effect!
+     * @param effect
+     *          The effect to create
+     * @throws JChromaException
+     *          If the parameters of the effect are invalid or the effect is not supported
+     */
+    public void createEffect(ChromaEffect effect) {
+        if (effect == null) {
+            return;
+        }
+
+        if (effect instanceof CustomKeyboardEffect) {
+            createKeyboardEffect((CustomKeyboardEffect)effect);
+        } else if (effect instanceof CustomKeypadEffect) {
+            createKeypadEffect((CustomKeypadEffect)effect);
+        } else if (effect instanceof CustomMouseEffect) {
+            createMouseEffect((CustomMouseEffect)effect);
+        }
+    }
+
+    /**
      * Creates a keyboard effect on the currently plugged keyboard. The effect is immediately activated when calling this method.<br/>
      * <b>Warning:</b> Any call to <code>createKeyboardEffect</code> will replace the current effect!
      * @param effect
@@ -82,6 +110,30 @@ public class JChroma {
             err = wrapper.CreateKeyboardEffect(effect.getType().ordinal(), param.getPointer(), Pointer.NULL);
         }
         throwIfError(err, "createKeyboardEffect("+effect.getType().name()+")");
+    }
+
+    public void createKeypadEffect(KeypadEffect effect) {
+        Structure param = effect.createParameter();
+        int err;
+        if(param == null) {
+            err = wrapper.CreateKeypadEffect(effect.getType().ordinal(), Pointer.NULL, Pointer.NULL);
+        } else {
+            param.write();
+            err = wrapper.CreateKeypadEffect(effect.getType().ordinal(), param.getPointer(), Pointer.NULL);
+        }
+        throwIfError(err, "createKeypadEffect("+effect.getType().name()+")");
+    }
+
+    public void createMouseEffect(MouseEffect effect) {
+        Structure param = effect.createParameter();
+        int err;
+        if(param == null) {
+            err = wrapper.CreateMouseEffect(effect.getType().ordinal(), Pointer.NULL, Pointer.NULL);
+        } else {
+            param.write();
+            err = wrapper.CreateMouseEffect(effect.getType().ordinal(), param.getPointer(), Pointer.NULL);
+        }
+        throwIfError(err, "createMouseEffect("+effect.getType().name()+")");
     }
 
     /**

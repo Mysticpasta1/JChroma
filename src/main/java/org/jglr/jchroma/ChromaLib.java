@@ -13,6 +13,8 @@ interface ChromaLib extends Library {
     int Init();
     int UnInit();
     int CreateKeyboardEffect(int type, Pointer param, Pointer effectID);
+    int CreateKeypadEffect(int type, Pointer param, Pointer effectID);
+    int CreateMouseEffect(int type, Pointer param, Pointer effectID);
     int QueryDevice(GUIDStruct struct, DeviceInfos.DeviceInfosStruct infos);
 
 }

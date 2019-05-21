@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import sun.rmi.runtime.Log;
@@ -187,23 +188,37 @@ public class TestEffects {
 
     @Test
     public void showAnimation() {
-        InputStream input = TestEffects.class.getResourceAsStream("animation_rainbow_keyboard.chroma");
-        AnimationBase animation = ChromaAnimationAPI.OpenAnimation(input);
-        if (animation == null) {
-            System.err.println("Animation could not be loaded!");
-            return;
-        }
+        String[] animations = {
+                "animation_rainbow_chroma_link.chroma",
+                "animation_rainbow_headset.chroma",
+                "animation_rainbow_keyboard.chroma",
+                "animation_rainbow_keypad.chroma",
+                "animation_rainbow_mouse.chroma",
+                "animation_rainbow_mousepad.chroma",
+        };
+        for (String animationName : animations) {
+            System.out.println("Testing: " + animationName + " ...");
+            InputStream input = TestEffects.class.getResourceAsStream(animationName);
+            AnimationBase animation = ChromaAnimationAPI.OpenAnimation(input);
+            if (animation == null) {
+                System.err.println("Animation could not be loaded! " + animationName);
+                return;
+            }
 
-        CustomKeyboardEffect effect = new CustomKeyboardEffect();
+            int frameCount = animation.getFrameCount();
+            for (int frameId = 0; frameId < frameCount; ++frameId) {
+                try {
+                    animation.showFrame(chroma, frameId);
+                    int duration = (int)Math.floor(1000 * animation.getDuration(frameId));
+                    Thread.sleep(duration);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
-        int frameCount = animation.getFrameCount();
-        for (int frameId = 0; frameId < frameCount; ++frameId) {
             try {
-                animation.showFrame(effect, frameId);
-                chroma.createKeyboardEffect(effect);
-                int duration = (int)Math.floor(1000 * animation.getDuration(frameId));
-                Thread.sleep(duration);
-            } catch (InterruptedException e) {
+                input.close();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
