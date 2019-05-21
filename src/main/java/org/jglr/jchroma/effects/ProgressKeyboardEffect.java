@@ -3,7 +3,7 @@ package org.jglr.jchroma.effects;
 import org.jglr.jchroma.utils.ColorRef;
 import org.jglr.jchroma.utils.KeyboardKeys;
 
-public class ProgressKeyboardEffect2D extends CustomKeyboardEffect {
+public class ProgressKeyboardEffect extends CustomKeyboardEffect {
 
     private final int[] keys;
     private int currentValue;
@@ -13,7 +13,7 @@ public class ProgressKeyboardEffect2D extends CustomKeyboardEffect {
     private int maximumValue;
     private int[] modelToView;
 
-    public ProgressKeyboardEffect2D(int from, int to) {
+    public ProgressKeyboardEffect(int from, int to) {
         this(createFromToArray(from, to));
     }
 
@@ -31,7 +31,7 @@ public class ProgressKeyboardEffect2D extends CustomKeyboardEffect {
      *      The keys to show the progress on, sorted from lowest value key to highest
      *
      */
-    public ProgressKeyboardEffect2D(int[] keys) {
+    public ProgressKeyboardEffect(int[] keys) {
         super();
         this.keys = keys;
         modelToView = createFromToArray(0, keys.length);

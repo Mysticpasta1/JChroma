@@ -45,7 +45,7 @@ public class TestEffects {
         heartEffect.setKeyColor(KeyboardKeys.RZKEY_4, red);
         heartEffect.setKeyColor(KeyboardKeys.RZKEY_6, red);
 
-        ProgressKeyboardEffect2D progressEffect = new ProgressKeyboardEffect2D(KeyboardKeys.RZKEY_F1, KeyboardKeys.RZKEY_F12);
+        ProgressKeyboardEffect progressEffect = new ProgressKeyboardEffect(KeyboardKeys.RZKEY_F1, KeyboardKeys.RZKEY_F12);
         progressEffect.setMinimumValue(0);
         progressEffect.setMaximumValue(100);
         progressEffect.setCurrentValue(0);
@@ -104,7 +104,7 @@ public class TestEffects {
     @Test
     public void progress() {
         int maxCount = 5;
-        ProgressKeyboardEffect2D effect = new ProgressKeyboardEffect2D(KeyboardKeys.RZKEY_F1, KeyboardKeys.RZKEY_F12);
+        ProgressKeyboardEffect effect = new ProgressKeyboardEffect(KeyboardKeys.RZKEY_F1, KeyboardKeys.RZKEY_F12);
         effect.setMinimumValue(0);
         effect.setMaximumValue(100);
         effect.setCurrentValue(0);
