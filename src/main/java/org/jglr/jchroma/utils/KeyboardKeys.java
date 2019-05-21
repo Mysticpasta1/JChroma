@@ -106,7 +106,7 @@ public interface KeyboardKeys {
             RZKEY_MACRO3 = 0x0300,              /*!< Macro Key 3 */
             RZKEY_MACRO4 = 0x0400,              /*!< Macro Key 4 */
             RZKEY_MACRO5 = 0x0500,              /*!< Macro Key 5 */
-            RZKEY_OEM_1 = 0x0101,               /*!< ~ (tilde/半角/全角) (VK_OEM_3) */
+            RZKEY_OEM_1 = 0x0101,               /*!< ~ (tilde/&#x534a;&#x89d2;/&#x5168;&#x89d2;) (VK_OEM_3) */
             RZKEY_OEM_2 = 0x010C,               /*!< -- (minus) (VK_OEM_MINUS) */
             RZKEY_OEM_3 = 0x010D,               /*!< = (equal) (VK_OEM_PLUS) */
             RZKEY_OEM_4 = 0x020C,               /*!< [ (left sqaure bracket) (VK_OEM_4) */
@@ -121,15 +121,15 @@ public interface KeyboardKeys {
             RZKEY_EUR_2 = 0x0402,               /*!< \ (VK_OEM_102) */
             RZKEY_JPN_1 = 0x0015,               /*!< ¥ (0xFF) */
             RZKEY_JPN_2 = 0x040D,               /*!< \ (0xC1) */
-            RZKEY_JPN_3 = 0x0504,               /*!< 無変換 (VK_OEM_PA1) */
-            RZKEY_JPN_4 = 0x0509,               /*!< 変換 (0xFF) */
-            RZKEY_JPN_5 = 0x050A,               /*!< ひらがな/カタカナ (0xFF) */
+            RZKEY_JPN_3 = 0x0504,               /*!< &#x7121;&#x5909;&#x63db; (VK_OEM_PA1) */
+            RZKEY_JPN_4 = 0x0509,               /*!< &#x5909;&#x63db; (0xFF) */
+            RZKEY_JPN_5 = 0x050A,               /*!< &#x3072;&#x3089;&#x304c;&#x306a;/&#x30ab;&#x30bf;&#x30ab;&#x30ca; (0xFF) */
             RZKEY_KOR_1 = 0x0015,               /*!< | (0xFF) */
             RZKEY_KOR_2 = 0x030D,               /*!< (VK_OEM_5) */
             RZKEY_KOR_3 = 0x0402,               /*!< (VK_OEM_102) */
             RZKEY_KOR_4 = 0x040D,               /*!< (0xC1) */
             RZKEY_KOR_5 = 0x0504,               /*!< (VK_OEM_PA1) */
-            RZKEY_KOR_6 = 0x0509,               /*!< 한/영 (0xFF) */
+            RZKEY_KOR_6 = 0x0509,               /*!< &#xd55c;/&#xc601; (0xFF) */
             RZKEY_KOR_7 = 0x050A,               /*!< (0xFF) */
             RZKEY_INVALID = 0xFFFF;              /*!< Invalid keys. */
 

@@ -21,3 +21,8 @@ build/
 # Gradle
 .gradle/
 !/gradle/wrapper/gradle-wrapper.jar
+/bin/
+local.properties
+.project
+.classpath
+.settings/org.eclipse.buildship.core.prefs

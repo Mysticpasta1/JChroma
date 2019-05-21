@@ -1,10 +1,18 @@
+import com.razer.chroma.javachromasdk.AnimationBase;
+import com.razer.chroma.javachromasdk.ChromaAnimationAPI;
+
 import org.jglr.jchroma.JChroma;
 import org.jglr.jchroma.effects.*;
 import org.jglr.jchroma.utils.ColorRef;
 import org.jglr.jchroma.utils.KeyboardKeys;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+
+import java.io.InputStream;
+
+import sun.rmi.runtime.Log;
 
 /**
  * """"""""Unit tests""""""""
@@ -174,6 +182,30 @@ public class TestEffects {
             Thread.sleep(8000);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void showAnimation() {
+        InputStream input = TestEffects.class.getResourceAsStream("animation_rainbow_keyboard.chroma");
+        AnimationBase animation = ChromaAnimationAPI.OpenAnimation(input);
+        if (animation == null) {
+            System.err.println("Animation could not be loaded!");
+            return;
+        }
+
+        CustomKeyboardEffect effect = new CustomKeyboardEffect();
+
+        int frameCount = animation.getFrameCount();
+        for (int frameId = 0; frameId < frameCount; ++frameId) {
+            try {
+                animation.showFrame(effect, frameId);
+                chroma.createKeyboardEffect(effect);
+                int duration = (int)Math.floor(1000 * animation.getDuration(frameId));
+                Thread.sleep(duration);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
