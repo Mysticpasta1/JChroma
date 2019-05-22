@@ -9,6 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -183,43 +186,72 @@ public class TestEffects {
         }
     }
 
-    @Test
-    public void showAnimation() {
-        String[] animations = {
-                "animation_rainbow_chroma_link.chroma",
-                "animation_rainbow_headset.chroma",
-                "animation_rainbow_keyboard.chroma",
-                "animation_rainbow_keypad.chroma",
-                "animation_rainbow_mouse.chroma",
-                "animation_rainbow_mousepad.chroma",
-        };
-        for (String animationName : animations) {
-            System.out.println("Testing: " + animationName + " ...");
-            InputStream input = TestEffects.class.getResourceAsStream(animationName);
-            AnimationBase animation = ChromaAnimationAPI.OpenAnimation(input);
+    public void showAnimation(String animationName) {
+        System.out.println("Testing: " + animationName + " ...");
+        String workingDir = System.getProperty("user.dir");
+        File temp = new File(workingDir+"\\src\\main\\resources\\", animationName);
+
+        String absolutePath = temp.getAbsolutePath();
+        InputStream input = null;
+        try {
+            input = new FileInputStream(absolutePath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        AnimationBase animation = null;
+        try {
+            if (null != input) {
+                animation = ChromaAnimationAPI.OpenAnimation(input);
+                input.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (animation == null) {
+            System.err.println("Animation could not be loaded! " + animationName);
+            return;
+        }
+
+        int frameCount = animation.getFrameCount();
+        for (int frameId = 0; frameId < frameCount; ++frameId) {
             try {
-                if (null != input) {
-                    input.close();
-                }
-            } catch (IOException e) {
+                animation.showFrame(chroma, frameId);
+                int duration = (int)Math.floor(1000 * animation.getDuration(frameId));
+                Thread.sleep(duration);
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (animation == null) {
-                System.err.println("Animation could not be loaded! " + animationName);
-                return;
-            }
-
-            int frameCount = animation.getFrameCount();
-            for (int frameId = 0; frameId < frameCount; ++frameId) {
-                try {
-                    animation.showFrame(chroma, frameId);
-                    int duration = (int)Math.floor(1000 * animation.getDuration(frameId));
-                    Thread.sleep(duration);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+    }
+
+    @Test
+    public void showChromaLink() {
+        showAnimation("animation_rainbow_chroma_link.chroma");
+    }
+
+    @Test
+    public void showHeadset() {
+        showAnimation("animation_rainbow_headset.chroma");
+    }
+
+    @Test
+    public void showKeyboard() {
+        showAnimation("animation_rainbow_keyboard.chroma");
+    }
+
+    @Test
+    public void showKeypad() {
+        showAnimation("animation_rainbow_keypad.chroma");
+    }
+
+    @Test
+    public void showMouse() {
+        showAnimation("animation_rainbow_mouse.chroma");
+    }
+
+    @Test
+    public void showMousepad() {
+        showAnimation("animation_rainbow_mousepad.chroma");
     }
 
     @Test
