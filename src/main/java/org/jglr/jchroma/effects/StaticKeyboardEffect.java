@@ -44,7 +44,7 @@ public class StaticKeyboardEffect extends KeyboardEffect {
         }
 
         @Override
-        protected List getFieldOrder() {
+        protected List<String> getFieldOrder() {
             return Collections.singletonList("color");
         }
     }

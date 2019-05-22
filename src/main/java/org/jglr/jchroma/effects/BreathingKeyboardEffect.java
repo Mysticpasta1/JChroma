@@ -75,7 +75,7 @@ public class BreathingKeyboardEffect extends KeyboardEffect {
         public int type;
 
         @Override
-        protected List getFieldOrder() {
+        protected List<String> getFieldOrder() {
             return Arrays.asList("type", "color1", "color2");
         }
     }

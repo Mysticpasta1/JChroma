@@ -1,7 +1,10 @@
 package org.jglr.jchroma;
 
 public class JChromaException extends RuntimeException {
-    private int err;
+
+	private static final long serialVersionUID = 1432685597153192215L;
+
+	private int err;
 
     public JChromaException(String s, int err) {
         super("Error in "+s+": "+errorCodeToString(err)+" ("+err+")");

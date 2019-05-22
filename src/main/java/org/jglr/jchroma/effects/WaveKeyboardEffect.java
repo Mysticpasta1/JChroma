@@ -51,7 +51,7 @@ public class WaveKeyboardEffect extends KeyboardEffect {
         }
 
         @Override
-        protected List getFieldOrder() {
+        protected List<String> getFieldOrder() {
             return Collections.singletonList("direction");
         }
     }

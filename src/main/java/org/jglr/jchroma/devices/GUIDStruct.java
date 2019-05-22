@@ -1,9 +1,9 @@
 package org.jglr.jchroma.devices;
 
-import com.sun.jna.Structure;
-
 import java.util.Arrays;
 import java.util.List;
+
+import com.sun.jna.Structure;
 
 public class GUIDStruct extends Structure implements Structure.ByValue {
 
@@ -13,7 +13,7 @@ public class GUIDStruct extends Structure implements Structure.ByValue {
     public byte[] data4 = new byte[8];
 
     @Override
-    protected List getFieldOrder() {
+    protected List<String> getFieldOrder() {
         return Arrays.asList("data1", "data2", "data3", "data4");
     }
 }

@@ -92,7 +92,7 @@ public class CustomChromaLinkEffect extends ChromaLinkEffect implements ChromaEf
         public int[] colors = new int[MAX_LEDS];
 
         @Override
-        protected List getFieldOrder() {
+        protected List<String> getFieldOrder() {
             return Collections.singletonList("colors");
         }
     }

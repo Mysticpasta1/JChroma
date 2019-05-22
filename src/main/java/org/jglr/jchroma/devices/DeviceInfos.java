@@ -31,7 +31,7 @@ public class DeviceInfos {
         public int isConnected;
 
         @Override
-        protected List getFieldOrder() {
+        protected List<String> getFieldOrder() {
             return Arrays.asList("type", "isConnected");
         }
     }

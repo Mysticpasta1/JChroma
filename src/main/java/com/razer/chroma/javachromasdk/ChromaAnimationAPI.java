@@ -9,7 +9,7 @@ public class ChromaAnimationAPI {
 	private static final String TAG = "ChromaAnimationAPI";
 	private static final int ANIMATION_VERSION = 1;
 
-	public static int GetMaxRow(EChromaSDKDevice2DEnum device) {
+	public static int getMaxRow(EChromaSDKDevice2DEnum device) {
 		switch (device) {
 		case DE_Keyboard:
 			return 6;
@@ -21,7 +21,7 @@ public class ChromaAnimationAPI {
 		return 0;
 	}
 
-	public static int GetMaxColumn(EChromaSDKDevice2DEnum device) {
+	public static int getMaxColumn(EChromaSDKDevice2DEnum device) {
 		switch (device) {
 		case DE_Keyboard:
 			return 22;
@@ -33,7 +33,7 @@ public class ChromaAnimationAPI {
 		return 0;
 	}
 
-	public static int GetMaxLeds(EChromaSDKDevice1DEnum device) {
+	public static int getMaxLeds(EChromaSDKDevice1DEnum device) {
 		switch (device) {
 		case DE_ChromaLink:
 			return 5;
@@ -45,15 +45,15 @@ public class ChromaAnimationAPI {
 		return 0;
 	}
 
-	public static int GetRed(int color) {
+	public static int getRed(int color) {
 		return color & 0xFF;
 	}
 
-	public static int GetGreen(int color) {
+	public static int getGreen(int color) {
 		return (color & 0xFF00) >> 8;
 	}
 
-	public static int GetBlue(int color) {
+	public static int getBlue(int color) {
 		return (color & 0xFF0000) >> 16;
 	}
 
@@ -115,7 +115,7 @@ public class ChromaAnimationAPI {
 				ArrayList<FChromaSDKColorFrame1D> frames = animation1D.getFrames();
 				for (int frameId = 0; frameId < frameCount; ++frameId) {
 					FChromaSDKColorFrame1D frame = new FChromaSDKColorFrame1D();
-					int maxLeds = ChromaAnimationAPI.GetMaxLeds(animation1D.getDevice());
+					int maxLeds = ChromaAnimationAPI.getMaxLeds(animation1D.getDevice());
 
 					// duration
 					error = "OpenAnimation: Error detected reading duration!";
@@ -173,8 +173,8 @@ public class ChromaAnimationAPI {
 				ArrayList<FChromaSDKColorFrame2D> frames = animation2D.getFrames();
 				for (int frameId = 0; frameId < frameCount; ++frameId) {
 					FChromaSDKColorFrame2D frame = new FChromaSDKColorFrame2D();
-					int maxRow = ChromaAnimationAPI.GetMaxRow(animation2D.getDevice());
-					int maxColumn = ChromaAnimationAPI.GetMaxColumn(animation2D.getDevice());
+					int maxRow = ChromaAnimationAPI.getMaxRow(animation2D.getDevice());
+					int maxColumn = ChromaAnimationAPI.getMaxColumn(animation2D.getDevice());
 
 					// duration
 					error = "OpenAnimation: Error detected reading duration!";
