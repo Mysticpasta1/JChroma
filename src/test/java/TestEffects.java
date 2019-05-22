@@ -198,7 +198,9 @@ public class TestEffects {
             InputStream input = TestEffects.class.getResourceAsStream(animationName);
             AnimationBase animation = ChromaAnimationAPI.OpenAnimation(input);
             try {
-                input.close();
+                if (null != input) {
+                    input.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
