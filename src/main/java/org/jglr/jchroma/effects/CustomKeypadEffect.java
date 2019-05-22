@@ -106,7 +106,7 @@ public class CustomKeypadEffect extends KeypadEffect implements ChromaEffect2D {
         public int[] colors = new int[ROW_COUNT*COLUMN_COUNT];
 
         @Override
-        protected List getFieldOrder() {
+        protected List<String> getFieldOrder() {
             return Collections.singletonList("colors");
         }
     }

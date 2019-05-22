@@ -92,7 +92,7 @@ public class CustomHeadsetEffect extends HeadsetEffect implements ChromaEffect1D
         public int[] colors = new int[MAX_LEDS];
 
         @Override
-        protected List getFieldOrder() {
+        protected List<String> getFieldOrder() {
             return Collections.singletonList("colors");
         }
     }

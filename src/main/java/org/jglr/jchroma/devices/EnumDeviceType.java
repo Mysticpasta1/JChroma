@@ -9,5 +9,5 @@ public enum EnumDeviceType {
     DEVICE_MOUSEPAD, //!< Mousepad device.
     DEVICE_KEYPAD, //!< Keypad device.
     DEVICE_SYSTEM, //!< System device.
-    DEVICE_INVALID
+    DEVICE_INVALID;
 }
