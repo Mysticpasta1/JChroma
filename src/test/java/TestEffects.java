@@ -1,5 +1,8 @@
+import com.razer.chroma.javachromasdk.Animation1D;
+import com.razer.chroma.javachromasdk.Animation2D;
 import com.razer.chroma.javachromasdk.AnimationBase;
 import com.razer.chroma.javachromasdk.ChromaAnimationAPI;
+import com.razer.chroma.javachromasdk.EChromaSDKDeviceTypeEnum;
 
 import org.jglr.jchroma.JChroma;
 import org.jglr.jchroma.effects.*;
@@ -14,6 +17,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+
+import static com.razer.chroma.javachromasdk.EChromaSDKDevice1DEnum.DE_ChromaLink;
+import static com.razer.chroma.javachromasdk.EChromaSDKDevice1DEnum.DE_Headset;
+import static com.razer.chroma.javachromasdk.EChromaSDKDevice1DEnum.DE_Mousepad;
+import static com.razer.chroma.javachromasdk.EChromaSDKDevice2DEnum.DE_Keyboard;
+import static com.razer.chroma.javachromasdk.EChromaSDKDevice2DEnum.DE_Keypad;
+import static com.razer.chroma.javachromasdk.EChromaSDKDevice2DEnum.DE_Mouse;
+import static com.razer.chroma.javachromasdk.EChromaSDKDeviceTypeEnum.DE_1D;
+import static com.razer.chroma.javachromasdk.EChromaSDKDeviceTypeEnum.DE_2D;
+import static junit.framework.TestCase.assertSame;
 
 /**
  * """"""""Unit tests""""""""
@@ -186,7 +199,8 @@ public class TestEffects {
         }
     }
 
-    public void showAnimation(String animationName) {
+    public AnimationBase showAnimation(String animationName) {
+        AnimationBase animation = null;
         System.out.println("Testing: " + animationName + " ...");
         String workingDir = System.getProperty("user.dir");
         File temp = new File(workingDir+"\\src\\main\\resources\\", animationName);
@@ -197,8 +211,8 @@ public class TestEffects {
             input = new FileInputStream(absolutePath);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return null;
         }
-        AnimationBase animation = null;
         try {
             if (null != input) {
                 animation = ChromaAnimationAPI.OpenAnimation(input);
@@ -209,7 +223,7 @@ public class TestEffects {
         }
         if (animation == null) {
             System.err.println("Animation could not be loaded! " + animationName);
-            return;
+            return null;
         }
 
         int frameCount = animation.getFrameCount();
@@ -222,36 +236,49 @@ public class TestEffects {
                 e.printStackTrace();
             }
         }
+        return animation;
     }
 
     @Test
     public void showChromaLink() {
-        showAnimation("animation_rainbow_chroma_link.chroma");
+        AnimationBase animation = showAnimation("animation_rainbow_chroma_link.chroma");
+        assertSame(animation.getDeviceType(), DE_1D);
+        assertSame(((Animation1D)animation).getDevice(), DE_ChromaLink);
     }
 
     @Test
     public void showHeadset() {
-        showAnimation("animation_rainbow_headset.chroma");
+        AnimationBase animation = showAnimation("animation_rainbow_headset.chroma");
+        assertSame(animation.getDeviceType(), DE_1D);
+        assertSame(((Animation1D)animation).getDevice(), DE_Headset);
     }
 
     @Test
     public void showKeyboard() {
-        showAnimation("animation_rainbow_keyboard.chroma");
+        AnimationBase animation = showAnimation("animation_rainbow_keyboard.chroma");
+        assertSame(animation.getDeviceType(), DE_2D);
+        assertSame(((Animation2D)animation).getDevice(), DE_Keyboard);
     }
 
     @Test
     public void showKeypad() {
-        showAnimation("animation_rainbow_keypad.chroma");
+        AnimationBase animation = showAnimation("animation_rainbow_keypad.chroma");
+        assertSame(animation.getDeviceType(), DE_2D);
+        assertSame(((Animation2D)animation).getDevice(), DE_Keypad);
     }
 
     @Test
     public void showMouse() {
-        showAnimation("animation_rainbow_mouse.chroma");
+        AnimationBase animation = showAnimation("animation_rainbow_mouse.chroma");
+        assertSame(animation.getDeviceType(), DE_2D);
+        assertSame(((Animation2D)animation).getDevice(), DE_Mouse);
     }
 
     @Test
     public void showMousepad() {
-        showAnimation("animation_rainbow_mousepad.chroma");
+        AnimationBase animation = showAnimation("animation_rainbow_mousepad.chroma");
+        assertSame(animation.getDeviceType(), DE_1D);
+        assertSame(((Animation1D)animation).getDevice(), DE_Mousepad);
     }
 
     @Test
