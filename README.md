@@ -8,8 +8,11 @@ Requirements
 
 In order to use the library, one must:
 
-1. Install the ChromaSDK (if not done already) [Link](http://developer.razerzone.com/chroma/)
-2. Have a Razer device to test it on
+1. Install [Synapse 3](https://www.razer.com/synapse-3) and install the `Chroma Connect module`
+
+2. Have a Razer device or `Chroma Connect Device` to test it on
+
+3. Open this sample project in Android Studio
 
 
 Quick example
