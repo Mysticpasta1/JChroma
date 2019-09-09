@@ -51,12 +51,12 @@ public class TestCChromaEditorLibrary {
     @Test
     public void testPlayAnimation() {
         chroma = JChromaSDK.getInstance();
-        chroma.playAnimation(getAnimationPath()+"animation_rainbow_chroma_link.chroma", true);
-        chroma.playAnimation(getAnimationPath()+"animation_rainbow_headset.chroma", true);
-        chroma.playAnimation(getAnimationPath()+"animation_rainbow_keyboard.chroma", true);
-        chroma.playAnimation(getAnimationPath()+"animation_rainbow_keypad.chroma", true);
-        chroma.playAnimation(getAnimationPath()+"animation_rainbow_mouse.chroma", true);
-        chroma.playAnimation(getAnimationPath()+"animation_rainbow_mousepad.chroma", true);
+        chroma.playAnimationName(getAnimationPath()+"animation_rainbow_chroma_link.chroma", true);
+        chroma.playAnimationName(getAnimationPath()+"animation_rainbow_headset.chroma", true);
+        chroma.playAnimationName(getAnimationPath()+"animation_rainbow_keyboard.chroma", true);
+        chroma.playAnimationName(getAnimationPath()+"animation_rainbow_keypad.chroma", true);
+        chroma.playAnimationName(getAnimationPath()+"animation_rainbow_mouse.chroma", true);
+        chroma.playAnimationName(getAnimationPath()+"animation_rainbow_mousepad.chroma", true);
     }
 
 }
