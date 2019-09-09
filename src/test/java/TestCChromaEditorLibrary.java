@@ -14,7 +14,7 @@ public class TestCChromaEditorLibrary {
     @Before
     public void init() {
         chroma = JChromaSDK.getInstance();
-        int result = chroma.pluginInit();
+        int result = chroma.init();
         if (result != 0) {
             System.err.println("Init unexpected result="+result);
         } else {
@@ -25,7 +25,17 @@ public class TestCChromaEditorLibrary {
     @After
     public void dispose() {
         chroma = JChromaSDK.getInstance();
-        int result = chroma.pluginUninit();
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        chroma.stopAll();
+        chroma.closeAll();
+
+        int result = chroma.uninit();
         if (result != 0) {
             System.err.println("Uninit unexpected result="+result);
         } else {
@@ -33,9 +43,20 @@ public class TestCChromaEditorLibrary {
         }
     }
 
+    private String getAnimationPath() {
+        return System.getProperty("user.dir")+"\\src\\main\\resources\\";
+    }
+
 
     @Test
     public void testPlayAnimation() {
+        chroma = JChromaSDK.getInstance();
+        chroma.playAnimation(getAnimationPath()+"animation_rainbow_chroma_link.chroma", true);
+        chroma.playAnimation(getAnimationPath()+"animation_rainbow_headset.chroma", true);
+        chroma.playAnimation(getAnimationPath()+"animation_rainbow_keyboard.chroma", true);
+        chroma.playAnimation(getAnimationPath()+"animation_rainbow_keypad.chroma", true);
+        chroma.playAnimation(getAnimationPath()+"animation_rainbow_mouse.chroma", true);
+        chroma.playAnimation(getAnimationPath()+"animation_rainbow_mousepad.chroma", true);
     }
 
 }

@@ -44,7 +44,7 @@ public class JChromaSDK {
      * @throws JChromaException
      *          If there is any error while initialisation
      */
-    public int pluginInit() {
+    public int init() {
         int result = wrapper.PluginInit();
         throwIfError(result, "pluginInit()");
         return result;
@@ -55,9 +55,21 @@ public class JChromaSDK {
      * @throws JChromaException
      *          If there is any error while initialisation
      */
-    public int pluginUninit() {
+    public int uninit() {
         int result = wrapper.PluginUninit();
         throwIfError(result, "pluginUninit()");
         return result;
+    }
+
+    public void playAnimation(String name, boolean loop) {
+        wrapper.PluginPlayAnimationName(name, loop);
+    }
+
+    public void stopAll() {
+        wrapper.PluginStopAll();
+    }
+
+    public void closeAll() {
+        wrapper.PluginCloseAll();
     }
 }
