@@ -10,10 +10,13 @@ repositories {
 }
 
 dependencies {
-    compile 'net.java.dev.jna:jna:4.2.1'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation 'net.java.dev.jna:jna:4.2.1'
+    testImplementation group: 'junit', name: 'junit', version: '4.11'
 }
 
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding 'UTF-8'
+}
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
@@ -22,15 +25,4 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 
 artifacts {
     archives sourcesJar
-}
-
-sourceSets {
-    main {
-        java {
-            srcDirs= ["src/main/java"]
-        }
-        resources {
-            srcDirs= ["src/main/resources"]
-        }
-    }
 }
